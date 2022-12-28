@@ -7,18 +7,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.delcanteen.R
-import com.project.delcanteen.model.product
+import com.project.delcanteen.model.ProdukKantin
 
-class AdapterProduct(var data:ArrayList<product>):RecyclerView.Adapter<AdapterProduct.Holder>() {
+class AdapterProduk(var data: ArrayList<ProdukKantin>) :
+    RecyclerView.Adapter<AdapterProduk.Holder>() {
 
-    class Holder(view: View):RecyclerView.ViewHolder(view){
-        val tvNama = view.findViewById<TextView>(R.id.tv_nama_product)
+    class Holder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvNama = view.findViewById<TextView>(R.id.tv_nama)
         val tvHarga = view.findViewById<TextView>(R.id.tv_harga)
-        val imgProduk = view.findViewById<ImageView>(R.id.img_product)
+        val imgProduk = view.findViewById<ImageView>(R.id.img_produk)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.activity_item_produk_kantin, parent, false)
         return Holder(view)
     }
 
@@ -27,9 +29,9 @@ class AdapterProduct(var data:ArrayList<product>):RecyclerView.Adapter<AdapterPr
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.tvNama.text = data[position].nama
+        holder.tvNama.text = data[position].nama_produk
         holder.tvHarga.text = data[position].harga
-        holder.imgProduk.setImageResource(data[position].gambar)
+//        holder.imgProduk.setImageResource(data[position].gambar)
     }
 
 }

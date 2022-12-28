@@ -1,31 +1,45 @@
 package com.project.delcanteen.fragment
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.project.delcanteen.R
-import com.project.delcanteen.adapter.AdapterProduct
+import com.project.delcanteen.activity.ProdukKantinActivity
+import com.project.delcanteen.adapter.AdapterProduk
 import com.project.delcanteen.adapter.AdapterSlider
-import com.project.delcanteen.model.product
+import com.project.delcanteen.adapter.ProdukKantinAdapter
+import com.project.delcanteen.app.ApiClient
+import com.project.delcanteen.app.ApiConfig
+import com.project.delcanteen.model.ProdukKantin
+import com.project.delcanteen.model.ResponProdukKantin
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class HomeFragment : Fragment() {
 
     lateinit var vpSlider: ViewPager
-    lateinit var rvProduct:RecyclerView
-    lateinit var rvProductPopular:RecyclerView
-    lateinit var rvProductOther:RecyclerView
-
+    lateinit var rvProduct: RecyclerView
+    lateinit var rvProductPopular: RecyclerView
+    lateinit var rvProductOther: RecyclerView
+    var dataList = ArrayList<ProdukKantin>()
+    lateinit var recyclerView: RecyclerView
+    lateinit var produkKantinIcon: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view : View = inflater.inflate(R.layout.fragment_home, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
         vpSlider = view.findViewById(R.id.vp_slider)
         rvProduct = view.findViewById(R.id.rv_product)
@@ -37,115 +51,75 @@ class HomeFragment : Fragment() {
         arrSlider.add(R.drawable.slider5)
         arrSlider.add(R.drawable.slider6)
 
-        val adapterSlider = AdapterSlider(arrSlider,activity)
+        val adapterSlider = AdapterSlider(arrSlider, activity)
         vpSlider.adapter = adapterSlider
 
         val layoutManager1 = LinearLayoutManager(activity)
         layoutManager1.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView = view.findViewById(R.id.rv_product_popular)
+        recyclerView.adapter = ProdukKantinAdapter(dataList, recyclerView.context);
+        recyclerView.layoutManager = layoutManager1
+        getProdukKantinData();
 
-        rvProduct.adapter = AdapterProduct(arrProduct)
-        rvProduct.layoutManager = layoutManager1
+        produkKantinIcon = view.findViewById(R.id.icon_kantin);
 
-        val layoutManager2 = LinearLayoutManager(activity)
-        layoutManager2.orientation = LinearLayoutManager.HORIZONTAL
 
-        rvProductPopular.adapter = AdapterProduct(arrProductPopular)
-        rvProductPopular.layoutManager = layoutManager2
-
-        val layoutManager3 = LinearLayoutManager(activity)
-        layoutManager3.orientation = LinearLayoutManager.HORIZONTAL
-
-        rvProductOther.adapter = AdapterProduct(arrProductOther)
-        rvProductOther.layoutManager = layoutManager3
+        produkKantinIcon.setOnClickListener { view ->
+            val intent = Intent(view.context, ProdukKantinActivity::class.java)
+            startActivity(intent)
+        }
 
         return view
     }
-    val arrProduct:ArrayList<product>get() {
-        val arr = ArrayList<product>()
-        val p1 = product()
-        p1.nama = "Shampo Head and Shoulders 300ml"
-        p1.harga = "Rp50,000"
-        p1.gambar = R.drawable.sampo
 
-        val p2 = product()
-        p2.nama = "Odol Pepsodent"
-        p2.harga = "Rp20,000"
-        p2.gambar = R.drawable.odol
+    fun getProdukKantin() {
+        ApiConfig.instanceRetrofit.getProdukKantin().enqueue(object :
+            Callback<ResponProdukKantin> {
 
-        val p3 = product()
-        p3.nama = "Teh Botol"
-        p3.harga = "Rp5,000"
-        p3.gambar = R.drawable.tehbotol
+            override fun onResponse(
+                call: Call<ResponProdukKantin>,
+                response: Response<ResponProdukKantin>
+            ) {
+                Log.i("Data produk kantin: ", response.body().toString())
+                response.body()?.data?.forEach {
+                    dataList.add(it);
+                }
+//                displayProdukKantin();
+            }
 
-        val p4 = product()
-        p4.nama = "Nutri Sari"
-        p4.harga = "Rp5,000"
-        p4.gambar = R.drawable.nutrisari
+            override fun onFailure(call: Call<ResponProdukKantin>, t: Throwable) {
+                Log.d("Error ", t.message.toString())
+            }
 
-        arr.add(p1)
-        arr.add(p2)
-        arr.add(p3)
-        arr.add(p4)
-
-        return arr
+        })
     }
-    val arrProductPopular:ArrayList<product>get() {
-        val arr = ArrayList<product>()
-        val p1 = product()
-        p1.nama = "Capuchino Cincau"
-        p1.harga = "Rp10,000"
-        p1.gambar = R.drawable.capcin
+//
+//    fun displayProdukKantin() {
+//        val layoutManager1 = LinearLayoutManager(activity)
+//        layoutManager1.orientation = LinearLayoutManager.HORIZONTAL
+//
+//        rvProduct.adapter = AdapterProduct(listProduk);
+//        rvProduct.layoutManager = layoutManager1
+//    }
 
-        val p2 = product()
-        p2.nama = "Nasi Goreng"
-        p2.harga = "Rp20,000"
-        p2.gambar = R.drawable.nasigoreng
+    private fun getProdukKantinData() {
+        val call: Call<ResponProdukKantin> =
+            ApiClient.getClient.getProdukKantin()
+        call.enqueue(object : Callback<ResponProdukKantin> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<ResponProdukKantin>?,
+                response: Response<ResponProdukKantin>?
+            ) {
+                dataList.addAll(response!!.body()!!.data)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
 
-        val p3 = product()
-        p3.nama = "Es Teh"
-        p3.harga = "Rp5,000"
-        p3.gambar = R.drawable.esteh
-
-        val p4 = product()
-        p4.nama = "Wagyu A5 Medium Rare"
-        p4.harga = "Rp5,000,000"
-        p4.gambar = R.drawable.wagyu
-
-        arr.add(p1)
-        arr.add(p2)
-        arr.add(p3)
-        arr.add(p4)
-
-        return arr
+            override fun onFailure(
+                call: Call<ResponProdukKantin>?, t:
+                Throwable?
+            ) {
+            }
+        })
     }
-    val arrProductOther:ArrayList<product>get() {
-        val arr = ArrayList<product>()
-        val p1 = product()
-        p1.nama = "Leci Squash"
-        p1.harga = "Rp15,000"
-        p1.gambar = R.drawable.leci
-
-        val p2 = product()
-        p2.nama = "Jus Alpukat"
-        p2.harga = "Rp20,000"
-        p2.gambar = R.drawable.alpukat
-
-        val p3 = product()
-        p3.nama = "Tempe Goreng"
-        p3.harga = "Rp2,000"
-        p3.gambar = R.drawable.tempe
-
-        val p4 = product()
-        p4.nama = "Tahu Isi"
-        p4.harga = "Rp2,000"
-        p4.gambar = R.drawable.tahuisi
-
-        arr.add(p1)
-        arr.add(p2)
-        arr.add(p3)
-        arr.add(p4)
-
-        return arr
-    }
-
 }
