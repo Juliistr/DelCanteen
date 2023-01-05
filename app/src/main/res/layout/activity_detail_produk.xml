@@ -89,7 +89,7 @@
                             android:layout_toLeftOf="@+id/btn_share"
                             android:ellipsize="marquee"
                             android:maxLines="3"
-                            android:text="Nama Produk "
+                            android:text="Es Teh Manis "
                             android:textColor="@color/colorPrimaryBlue"
                             android:textSize="20dp" />
 
@@ -113,7 +113,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:layout_weight="3"
-                            android:text="Rp.0"
+                            android:text="Rp.5.000"
                             android:textSize="16dp"
                             android:textStyle="bold" />
 
@@ -134,7 +134,7 @@
                                 android:id="@+id/textViewStokDetailKantin"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="5"
                                 android:textColor="#657191"
                                 android:textSize="13dp" />
 
@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
-                    android:text="Pembelian dalam jumlah besar hubungi"
+                    android:text="Beli % gratis 3, gula dan banyaknya es batu dapat diatur"
                     android:textSize="13dp" />
 
                 <View
@@ -186,7 +186,7 @@
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_produk"
+                        android:id="@+id/rv_product_popular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp" />

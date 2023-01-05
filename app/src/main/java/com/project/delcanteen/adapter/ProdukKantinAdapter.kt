@@ -18,7 +18,7 @@ class ProdukKantinAdapter(
         Int
     ): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.list_product_kantin, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.list_product, parent, false)
         )
     }
 
@@ -29,15 +29,28 @@ class ProdukKantinAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dataModel = dataList.get(position)
         holder.titleTextView.text = dataModel.nama_produk
+        holder.priceTextView.text = dataModel.harga
+        holder.TotalTextView.text = dataModel.jumlah
+        holder.DescriptionTextView.text = dataModel.deskripsi
+        holder.ImagesTextView.text = dataModel.gambar
+
+
     }
 
     class ViewHolder(itemLayoutView: View) :
         RecyclerView.ViewHolder(itemLayoutView) {
         lateinit var titleTextView: TextView
+        lateinit var priceTextView: TextView
+        lateinit var TotalTextView: TextView
+        lateinit var DescriptionTextView: TextView
+        lateinit var ImagesTextView: TextView
 
         init {
-
-            titleTextView = itemLayoutView.findViewById(R.id.product_name)
+            titleTextView = itemLayoutView.findViewById(R.id.nama_produk)
+            priceTextView = itemLayoutView.findViewById(R.id.harga)
+            TotalTextView = itemLayoutView.findViewById(R.id.jumlah)
+            DescriptionTextView = itemLayoutView.findViewById(R.id.deskripsi)
+            ImagesTextView = itemLayoutView.findViewById(R.id.Gambar)
         }
     }
 
