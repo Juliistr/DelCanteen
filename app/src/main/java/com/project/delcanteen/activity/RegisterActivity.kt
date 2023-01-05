@@ -1,63 +1,89 @@
 package com.project.delcanteen.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.project.delcanteen.R
-import com.project.delcanteen.app.ApiConfig
-import com.project.delcanteen.model.ResponModel
+import com.project.delcanteen.app.ApiClient
+import com.project.delcanteen.helper.SharedPref
+import com.project.delcanteen.model.ResponUser
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RegisterActivity : AppCompatActivity() {
+    lateinit var s: SharedPref
+    lateinit var progerssProgressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         btn_register.setOnClickListener {
+            progerssProgressDialog = ProgressDialog(this)
+            progerssProgressDialog.setTitle("Loading")
+            progerssProgressDialog.setCancelable(false)
+            progerssProgressDialog.show()
             register()
+
         }
     }
 
     fun register() {
-        if (edt_nama.text.isEmpty()) {
-            edt_nama.error = "Kolom Nama tidak boleh kosong"
-            edt_nama.requestFocus()
+        if (nama.text.isEmpty()) {
+            nama.error = "Kolom Nama tidak boleh kosong"
+            nama.requestFocus()
             return
-        }else if (edt_KTP.text.isEmpty()) {
-            edt_KTP.error = "Kolom KTP tidak boleh kosong"
-            edt_KTP.requestFocus()
+        }else if (no_ktp.text.isEmpty()) {
+            no_ktp.error = "Kolom KTP tidak boleh kosong"
+            no_ktp.requestFocus()
             return
-        }else if (edt_email.text.isEmpty()) {
-            edt_email.error = "Kolom Email tidak boleh kosong"
-            edt_email.requestFocus()
+        }else if (no_hp.text.isEmpty()) {
+            no_hp.error = "Kolom KTP tidak boleh kosong"
+            no_hp.requestFocus()
             return
-        } else if (edt_phone.text.isEmpty()) {
-            edt_phone.error = "Kolom Nomor Telepon tidak boleh kosong"
-            edt_phone.requestFocus()
+        }else if (email.text.isEmpty()) {
+            email.error = "Kolom Email tidak boleh kosong"
+            email.requestFocus()
             return
-        } else if (edt_password.text.isEmpty()) {
-            edt_password.error = "Kolom Password tidak boleh kosong"
-            edt_password.requestFocus()
+        } else if (password.text.isEmpty()) {
+            password.error = "Kolom Password tidak boleh kosong"
+            password.requestFocus()
             return
         }
 
-        ApiConfig.instanceRetrofit.register(edt_nama.text.toString(),edt_KTP.text.toString(), edt_email.text.toString(),edt_password.text.toString()).enqueue(object : Callback<ResponModel>{
+        ApiClient.getClient.register(nama.text.toString(), no_hp .text.toString(),no_ktp.text.toString(), email.text.toString(),password.text.toString()).enqueue(object : Callback<ResponUser>{
 
-            override fun onFailure(call: Call<ResponModel>, t: Throwable) {
+            override fun onFailure(call: Call<ResponUser>, t: Throwable) {
+                progerssProgressDialog.dismiss()
                 Toast.makeText(this@RegisterActivity,"Error:"+t.message,Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<ResponModel>, response: Response<ResponModel>) {
+            override fun onResponse(call: Call<ResponUser>, response: Response<ResponUser>) {
+                progerssProgressDialog.dismiss()
                 val respon = response.body()!!
-//                if (respon.success == 1){
-//                    Toast.makeText(this@RegisterActivity, "Selamat datang "+respon.user.name, Toast.LENGTH_SHORT).show()
-//                } else{
-//                    Toast.makeText(this@RegisterActivity, "Error:"+respon.message, Toast.LENGTH_SHORT).show()
-//                }
+                if (respon.success) {
+                    s.setStatusLogin(true)
+
+                    val intents = Intent(this@RegisterActivity, LoginActivity::class.java)
+                    intents.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intents)
+                    finish()
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Register Berhasil Dilakukan",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        "Error: " + respon.error_message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         })
 

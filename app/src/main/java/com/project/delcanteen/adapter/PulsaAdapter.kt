@@ -4,9 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.delcanteen.R
+import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.Pulsa
 
 class PulsaAdapter(
@@ -26,29 +29,29 @@ class PulsaAdapter(
             return dataList.size
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val dataModel = dataList.get(position)
-            holder.titleTextView.text = dataModel.nama_produk
-            holder.priceTextView.text = dataModel.harga
-            holder.TotalTextView.text = dataModel.jumlah
-            holder.ImagesTextView.text = dataModel.gambar
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val dataModel = dataList.get(position)
+        holder.titleTextView.text = dataModel.nama_produk
+        holder.priceTextView.text = dataModel.harga
+        holder.jumlahTextView.text = dataModel.jumlah
+        Glide.with(context).load(ApiClient.BASE_URL + dataModel.gambar).centerCrop()
+            .into(holder.imageView)
 
+    }
 
+    class ViewHolder(itemLayoutView: View) :
+        RecyclerView.ViewHolder(itemLayoutView) {
+        lateinit var titleTextView: TextView
+        lateinit var imageView: ImageView
+        lateinit var priceTextView: TextView
+        lateinit var jumlahTextView: TextView
+
+        init {
+
+            titleTextView = itemLayoutView.findViewById(R.id.nama_produk)
+            imageView = itemLayoutView.findViewById<ImageView>(R.id.Gambar)
+            priceTextView = itemLayoutView.findViewById(R.id.harga)
+            jumlahTextView = itemLayoutView.findViewById(R.id.jumlah)
         }
-
-        class ViewHolder(itemLayoutView: View) :
-            RecyclerView.ViewHolder(itemLayoutView) {
-            lateinit var titleTextView: TextView
-            lateinit var priceTextView: TextView
-            lateinit var TotalTextView: TextView
-            lateinit var ImagesTextView: TextView
-
-            init {
-                titleTextView = itemLayoutView.findViewById(R.id.nama_produk)
-                priceTextView = itemLayoutView.findViewById(R.id.harga)
-                TotalTextView = itemLayoutView.findViewById(R.id.jumlah)
-                ImagesTextView = itemLayoutView.findViewById(R.id.Gambar)
-            }
-        }
-
+    }
     }

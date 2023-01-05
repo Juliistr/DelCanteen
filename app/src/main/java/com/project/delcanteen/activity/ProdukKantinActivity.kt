@@ -20,10 +20,11 @@ class ProdukKantinActivity : AppCompatActivity() {
     var dataList = ArrayList<ProdukKantin>()
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: ProdukKantinAdapter
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_produk_kantin)
-        recyclerView = findViewById(R.id.recycler_view)
+        setContentView(R.layout.activity_item_produk_kantin)
+        recyclerView = findViewById(R.id.recycler_view_kantin)
         //setting up the adapter
         recyclerView.adapter = ProdukKantinAdapter(dataList, this)
         recyclerView.layoutManager =

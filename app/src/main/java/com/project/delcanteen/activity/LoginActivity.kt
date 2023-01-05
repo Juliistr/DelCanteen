@@ -1,16 +1,16 @@
 package com.project.delcanteen.activity
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.project.delcanteen.MainActivity
-import com.project.delcanteen.R
-import com.project.delcanteen.app.ApiConfig
+import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.helper.SharedPref
 import com.project.delcanteen.model.ResponUser
-import com.project.delcanteen.model.ResponModel
+import com.project.delcanteen.R
+import com.project.delcanteen.fragment.HomeFragment
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +19,7 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
 
     lateinit var s: SharedPref
+    lateinit var progerssProgressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
         s = SharedPref(this)
 
         btn_login.setOnClickListener {
+            progerssProgressDialog = ProgressDialog(this)
+            progerssProgressDialog.setTitle("Loading")
+            progerssProgressDialog.setCancelable(false)
+            progerssProgressDialog.show()
             login()
         }
     }
@@ -41,29 +46,44 @@ class LoginActivity : AppCompatActivity() {
             password.requestFocus()
             return
         }
+        ApiClient.getClient.login(email.text.toString(), password.text.toString())
+            .enqueue(object :
+                Callback<ResponUser> {
 
-        pb.visibility = View.VISIBLE
-        ApiConfig.instanceRetrofit.login(email.text.toString(),password.text.toString()).enqueue(object :
-            Callback<ResponUser> {
-            override fun onFailure(call: Call<ResponUser>, t: Throwable) {
-                pb.visibility = View.GONE
-                Toast.makeText(this@LoginActivity, "Error:"+t.message, Toast.LENGTH_SHORT).show()
-            }
+                override fun onResponse(call: Call<ResponUser>, response: Response<ResponUser>) {
+                    progerssProgressDialog.dismiss()
+                    val respon = response.body()!!
+                    Log.i("Login response: ", respon.success.toString())
 
-            override fun onResponse(call: Call<ResponUser>, response: Response<ResponUser>) {
-                pb.visibility = View.GONE
-                val respon = response.body()!!
-                if (respon.success){
-                    s.setStatusLogin(true)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    finish()
-//                    Toast.makeText(this@LoginActivity, "Selamat datang "+respon.data.name, Toast.LENGTH_SHORT).show()
-//                } else{
-//                    Toast.makeText(this@LoginActivity, "Error:"+respon.message, Toast.LENGTH_SHORT).show()
+                    if (respon.success) {
+                        s.setStatusLogin(true)
+
+                        val intents = Intent(this@LoginActivity, HomeFragment::class.java)
+                        intents.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intents)
+                        finish()
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Selamat Datang " + respon.data.name,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Error: " + respon.error_message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
-        })
+
+                override fun onFailure(call: Call<ResponUser>, t: Throwable) {
+                    progerssProgressDialog.dismiss()
+                    Toast.makeText(this@LoginActivity, "Error: " + t.message, Toast.LENGTH_SHORT)
+                        .show()
+
+                }
+
+            })
+
     }
 }

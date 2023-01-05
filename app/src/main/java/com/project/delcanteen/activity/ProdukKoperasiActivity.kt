@@ -23,8 +23,8 @@ class ProdukKoperasiActivity : AppCompatActivity() {
     lateinit var adapter: ProdukKoperasiAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_produk_koperasi)
-        recyclerView = findViewById(R.id.recycler_view_koperasi)
+        setContentView(R.layout.activity_item_produk_koperasi)
+        recyclerView = findViewById(R.id.recycler_view_koperasi_detail)
         //setting up the adapter
         recyclerView.adapter = ProdukKoperasiAdapter(dataList, this)
         recyclerView.layoutManager =

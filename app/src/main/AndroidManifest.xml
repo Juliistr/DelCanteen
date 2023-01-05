@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.project.delcanteen">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.project.delcanteen">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +16,7 @@
             android:name=".activity.BaruActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.project.delcanteen.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +30,9 @@
         <activity android:name=".activity.MasukActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ProdukKantinActivity" />
-
+        <activity android:name=".activity.ProdukKoperasiActivity" />
+        <activity android:name=".activity.PeminjamanRuanganActivity" />
+        <activity android:name=".activity.PulsaActivity" />
     </application>
 
 </manifest>

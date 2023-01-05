@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 data class PeminjamanRuangan(
     @Expose
-    @SerializedName("nama_Ruangan")
-    val nama_Ruangan: String
+    @SerializedName("nama_ruangan")
+    val nama_ruangan: String
 )

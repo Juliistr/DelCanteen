@@ -1,40 +1,48 @@
 package com.project.delcanteen.fragment
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.project.delcanteen.R
+import com.project.delcanteen.activity.PeminjamanRuanganActivity
 import com.project.delcanteen.activity.ProdukKantinActivity
-import com.project.delcanteen.adapter.AdapterProduk
+import com.project.delcanteen.activity.ProdukKoperasiActivity
+import com.project.delcanteen.activity.PulsaActivity
 import com.project.delcanteen.adapter.AdapterSlider
 import com.project.delcanteen.adapter.ProdukKantinAdapter
+import com.project.delcanteen.adapter.ProdukKoperasiAdapter
 import com.project.delcanteen.app.ApiClient
-import com.project.delcanteen.app.ApiConfig
 import com.project.delcanteen.model.ProdukKantin
+import com.project.delcanteen.model.ProdukKoperasi
 import com.project.delcanteen.model.ResponProdukKantin
+import com.project.delcanteen.model.ResponProdukKoperasi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class HomeFragment : Fragment() {
-
+    lateinit var progerssProgressDialog: ProgressDialog
     lateinit var vpSlider: ViewPager
-    lateinit var rvProduct: RecyclerView
     lateinit var rvProductPopular: RecyclerView
     lateinit var rvProductOther: RecyclerView
     var dataList = ArrayList<ProdukKantin>()
+    var dataListKoperasi = ArrayList<ProdukKoperasi>()
     lateinit var recyclerView: RecyclerView
     lateinit var produkKantinIcon: ImageView
+    lateinit var produkKopersiIcon: ImageView
+    lateinit var pulsaIcon: ImageView
+    lateinit var peminjamanRuanganIcon: ImageView
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,9 +50,8 @@ class HomeFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_home, container, false)
 
         vpSlider = view.findViewById(R.id.vp_slider)
-        rvProduct = view.findViewById(R.id.rv_product)
-        rvProductPopular = view.findViewById(R.id.rv_product_popular)
-        rvProductOther = view.findViewById(R.id.rv_product_other)
+        rvProductPopular = view.findViewById(R.id.produk_kantin)
+        rvProductOther = view.findViewById(R.id.produk_koperasi)
 
         var arrSlider = ArrayList<Int>()
         arrSlider.add(R.drawable.slider4)
@@ -56,61 +63,63 @@ class HomeFragment : Fragment() {
 
         val layoutManager1 = LinearLayoutManager(activity)
         layoutManager1.orientation = LinearLayoutManager.HORIZONTAL
-        recyclerView = view.findViewById(R.id.rv_product_popular)
+        recyclerView = view.findViewById(R.id.produk_kantin)
         recyclerView.adapter = ProdukKantinAdapter(dataList, recyclerView.context);
         recyclerView.layoutManager = layoutManager1
-        getProdukKantinData();
+//        progerssProgressDialog = ProgressDialog(this.context)
+//        progerssProgressDialog.setTitle("Loading")
+//        progerssProgressDialog.setCancelable(false)
+//        progerssProgressDialog.show()
+        getProdukKantinTerbaruData();
+
+        val layoutManager2 = LinearLayoutManager(activity)
+        layoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+        recyclerView = view.findViewById(R.id.produk_koperasi)
+        recyclerView.adapter = ProdukKoperasiAdapter(dataListKoperasi, recyclerView.context);
+        recyclerView.layoutManager = layoutManager2
+        progerssProgressDialog = ProgressDialog(this.context)
+        progerssProgressDialog.setTitle("Loading")
+        progerssProgressDialog.setCancelable(false)
+        progerssProgressDialog.show()
+        getProdukKoperasiTerbaruData();
 
         produkKantinIcon = view.findViewById(R.id.icon_kantin);
-
+        produkKopersiIcon = view.findViewById(R.id.icon_koperasi);
+        pulsaIcon = view.findViewById(R.id.icon_pulsa);
+        peminjamanRuanganIcon = view.findViewById(R.id.icon_ruangan);
 
         produkKantinIcon.setOnClickListener { view ->
             val intent = Intent(view.context, ProdukKantinActivity::class.java)
             startActivity(intent)
         }
+        produkKopersiIcon.setOnClickListener { view ->
+            val intent = Intent(view.context, ProdukKoperasiActivity::class.java)
+            startActivity(intent)
+        }
 
+        pulsaIcon.setOnClickListener { view ->
+            val intent = Intent(view.context, PulsaActivity::class.java)
+            startActivity(intent)
+        }
+
+        peminjamanRuanganIcon.setOnClickListener { view ->
+            val intent = Intent(view.context, PeminjamanRuanganActivity::class.java)
+            startActivity(intent)
+        }
         return view
     }
 
-    fun getProdukKantin() {
-        ApiConfig.instanceRetrofit.getProdukKantin().enqueue(object :
-            Callback<ResponProdukKantin> {
 
-            override fun onResponse(
-                call: Call<ResponProdukKantin>,
-                response: Response<ResponProdukKantin>
-            ) {
-                Log.i("Data produk kantin: ", response.body().toString())
-                response.body()?.data?.forEach {
-                    dataList.add(it);
-                }
-//                displayProdukKantin();
-            }
-
-            override fun onFailure(call: Call<ResponProdukKantin>, t: Throwable) {
-                Log.d("Error ", t.message.toString())
-            }
-
-        })
-    }
-//
-//    fun displayProdukKantin() {
-//        val layoutManager1 = LinearLayoutManager(activity)
-//        layoutManager1.orientation = LinearLayoutManager.HORIZONTAL
-//
-//        rvProduct.adapter = AdapterProduct(listProduk);
-//        rvProduct.layoutManager = layoutManager1
-//    }
-
-    private fun getProdukKantinData() {
+    private fun getProdukKantinTerbaruData() {
         val call: Call<ResponProdukKantin> =
-            ApiClient.getClient.getProdukKantin()
+            ApiClient.getClient.getProdukKantinTerbaru()
         call.enqueue(object : Callback<ResponProdukKantin> {
             @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(
                 call: Call<ResponProdukKantin>?,
                 response: Response<ResponProdukKantin>?
             ) {
+                progerssProgressDialog.dismiss()
                 dataList.addAll(response!!.body()!!.data)
                 recyclerView.adapter?.notifyDataSetChanged()
             }
@@ -119,6 +128,30 @@ class HomeFragment : Fragment() {
                 call: Call<ResponProdukKantin>?, t:
                 Throwable?
             ) {
+                progerssProgressDialog.dismiss()
+            }
+        })
+    }
+
+    private fun getProdukKoperasiTerbaruData() {
+        val call: Call<ResponProdukKoperasi> =
+            ApiClient.getClient.getProdukKoperasi()
+        call.enqueue(object : Callback<ResponProdukKoperasi> {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onResponse(
+                call: Call<ResponProdukKoperasi>?,
+                response: Response<ResponProdukKoperasi>?
+            ) {
+                progerssProgressDialog.dismiss()
+                dataListKoperasi.addAll(response!!.body()!!.data)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+
+            override fun onFailure(
+                call: Call<ResponProdukKoperasi>?, t:
+                Throwable?
+            ) {
+                progerssProgressDialog.dismiss()
             }
         })
     }

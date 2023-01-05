@@ -23,8 +23,8 @@ class PeminjamanRuanganActivity : AppCompatActivity() {
     lateinit var adapter: PeminjamanRuanganAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_peminjaman_ruangan)
-        recyclerView = findViewById(R.id.recycler_view_ruangan)
+        setContentView(R.layout.activity_item_peminjaman_ruangan)
+        recyclerView = findViewById(R.id.recycler_view_ruangan_detail)
         //setting up the adapter
         recyclerView.adapter = PeminjamanRuanganAdapter(dataList, this)
         recyclerView.layoutManager =

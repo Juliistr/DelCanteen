@@ -154,39 +154,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginBottom="10dp"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/Pallete2"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="Produk Terbaru di Kantin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_product"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginTop="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginBottom="10dp"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/Pallete2"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="Paling Sering Dibeli"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_product_popular"
+                    android:id="@+id/produk_kantin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -207,7 +176,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_product_other"
+                    android:id="@+id/produk_koperasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

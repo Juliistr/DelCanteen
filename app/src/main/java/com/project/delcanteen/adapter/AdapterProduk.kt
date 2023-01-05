@@ -13,9 +13,9 @@ class AdapterProduk(var data: ArrayList<ProdukKantin>) :
     RecyclerView.Adapter<AdapterProduk.Holder>() {
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvNama = view.findViewById<TextView>(R.id.tv_nama)
-        val tvHarga = view.findViewById<TextView>(R.id.tv_harga)
-        val imgProduk = view.findViewById<ImageView>(R.id.img_produk)
+        val tvNama = view.findViewById<TextView>(R.id.nama_produk)
+        val tvHarga = view.findViewById<TextView>(R.id.harga)
+        val imgProduk = view.findViewById<ImageView>(R.id.Gambar)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {

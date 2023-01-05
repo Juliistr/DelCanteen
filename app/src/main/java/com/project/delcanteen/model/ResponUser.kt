@@ -9,5 +9,8 @@ data class ResponUser(
     val success: Boolean,
     @Expose
     @SerializedName("data")
-    val data: ArrayList<User>
+    val data: User,
+    @Expose
+    @SerializedName("error_message")
+    val error_message: String
 )

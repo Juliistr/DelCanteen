@@ -10,7 +10,7 @@ import com.project.delcanteen.R
 import com.project.delcanteen.model.PeminjamanRuangan
 
 class PeminjamanRuanganAdapter(
-    private var dataList: List<PeminjamanRuangan>, private val
+    private var dataList: ArrayList<PeminjamanRuangan>, private val
     context: Context
 ) : RecyclerView.Adapter<PeminjamanRuanganAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
@@ -28,9 +28,7 @@ class PeminjamanRuanganAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dataModel = dataList.get(position)
-        holder.titleTextView.text = dataModel.nama_Ruangan
-
-
+        holder.titleTextView.text = dataModel.nama_ruangan
     }
 
     class ViewHolder(itemLayoutView: View) :
@@ -38,7 +36,9 @@ class PeminjamanRuanganAdapter(
         lateinit var titleTextView: TextView
 
         init {
+
             titleTextView = itemLayoutView.findViewById(R.id.nama_ruangan)
         }
     }
+
 }

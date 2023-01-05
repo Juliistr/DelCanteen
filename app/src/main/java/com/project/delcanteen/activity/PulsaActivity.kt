@@ -21,10 +21,11 @@ class PulsaActivity : AppCompatActivity() {
     var dataList = ArrayList<Pulsa>()
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: PulsaAdapter
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pulsa)
-        recyclerView = findViewById(R.id.recycler_view_pulsa)
+        setContentView(R.layout.activity_item_pulsa)
+        recyclerView = findViewById(R.id.recycler_view_pulsa_detail)
         //setting up the adapter
         recyclerView.adapter = PulsaAdapter(dataList, this)
         recyclerView.layoutManager =
@@ -33,11 +34,11 @@ class PulsaActivity : AppCompatActivity() {
         progerssProgressDialog.setTitle("Loading")
         progerssProgressDialog.setCancelable(false)
         progerssProgressDialog.show()
-        getPulsa()
+        getPulsaData()
     }
 
 
-    private fun getPulsa() {
+    private fun getPulsaData() {
         val call: Call<ResponPulsa> =
             ApiClient.getClient.getPulsa()
         call.enqueue(object : Callback<ResponPulsa> {

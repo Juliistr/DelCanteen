@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edt_nama"
+                        android:id="@+id/nama"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edt_KTP"
+                        android:id="@+id/no_ktp"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edt_phone"
+                        android:id="@+id/no_hp"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
@@ -180,7 +180,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/edt_email"
+                        android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
@@ -225,7 +225,7 @@
                     app:passwordToggleEnabled="true">
 
                     <EditText
-                        android:id="@+id/edt_password"
+                        android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:background="@null"
