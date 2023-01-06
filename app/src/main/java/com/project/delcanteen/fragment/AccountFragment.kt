@@ -1,5 +1,6 @@
 package com.project.delcanteen.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.SharedMemory
 import androidx.fragment.app.Fragment
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.project.delcanteen.R
+import com.project.delcanteen.activity.LoginActivity
+import com.project.delcanteen.activity.PulsaActivity
 import com.project.delcanteen.helper.SharedPref
 
 class AccountFragment : Fragment() {
@@ -25,8 +28,9 @@ class AccountFragment : Fragment() {
 
         s = SharedPref(requireActivity())
 
-        btnLogout.setOnClickListener{
-            s.setStatusLogin(false)
+        btnLogout.setOnClickListener { view ->
+            val intent = Intent(view.context, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         return view

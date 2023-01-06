@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.project.delcanteen.MainActivity
 import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.helper.SharedPref
 import com.project.delcanteen.model.ResponUser
@@ -55,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.i("Login response: ", respon.success.toString())
                     if (respon.success) {
                         s.setStatusLogin(true)
-                        val intents = Intent(this@LoginActivity, HomeFragment::class.java)
+                        val intents = Intent(this@LoginActivity, MainActivity::class.java)
                         intents.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intents)
                         finish()

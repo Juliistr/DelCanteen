@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.project.delcanteen.R
 import com.project.delcanteen.adapter.PeminjamanRuanganAdapter
+import com.project.delcanteen.adapter.RuanganAdapter
 import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.PeminjamanRuangan
 import com.project.delcanteen.model.ResponPeminjamanRuangan
@@ -20,24 +21,25 @@ class RuanganActivity : AppCompatActivity() {
     lateinit var progerssProgressDialog: ProgressDialog
     var dataList = ArrayList<PeminjamanRuangan>()
     lateinit var recyclerView: RecyclerView
-    lateinit var adapter: PeminjamanRuanganAdapter
+    lateinit var adapter: RuanganAdapter
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_peminjaman_ruangan)
         recyclerView = findViewById(R.id.recycler_view_ruangan_detail)
         //setting up the adapter
-        recyclerView.adapter = PeminjamanRuanganAdapter(dataList, this)
+        recyclerView.adapter = RuanganAdapter(dataList, this)
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         progerssProgressDialog = ProgressDialog(this)
         progerssProgressDialog.setTitle("Loading")
         progerssProgressDialog.setCancelable(false)
         progerssProgressDialog.show()
-        getProdukKoperasiData()
+        getPeminjamanRuanganData()
     }
 
 
-    private fun getProdukKoperasiData() {
+    private fun getPeminjamanRuanganData() {
         val call: Call<ResponPeminjamanRuangan> =
             ApiClient.getClient.getPeminjamanRuangan()
         call.enqueue(object : Callback<ResponPeminjamanRuangan> {

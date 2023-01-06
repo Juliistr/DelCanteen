@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.project.delcanteen.R
-import com.project.delcanteen.activity.RuanganActivity
-import com.project.delcanteen.activity.ProdukKantinActivity
-import com.project.delcanteen.activity.ProdukKoperasiActivity
-import com.project.delcanteen.activity.PulsaActivity
+import com.project.delcanteen.activity.*
 import com.project.delcanteen.adapter.AdapterSlider
 import com.project.delcanteen.adapter.ProdukKantinAdapter
 import com.project.delcanteen.adapter.ProdukKoperasiAdapter
