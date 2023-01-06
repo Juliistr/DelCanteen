@@ -65,7 +65,7 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/imageViewDetailKantin"
+                    android:id="@+id/imageViewDetail"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:background="@color/white"
@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/textViewNamaDetailKantin"
+                            android:id="@+id/textViewNamaDetail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/textViewHargaDetailKantin"
+                            android:id="@+id/textViewHargaDetail"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
@@ -131,7 +131,7 @@
                                 android:text="Stok" />
 
                             <TextView
-                                android:id="@+id/textViewStokDetailKantin"
+                                android:id="@+id/textViewStokDetail"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="5"
@@ -158,7 +158,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewDeskripsiDetailKantin"
+                    android:id="@+id/textViewDeskripsiDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
@@ -186,7 +186,7 @@
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_product_popular"
+                        android:id="@+id/produk_kantin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp" />
@@ -244,11 +244,11 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/btn_BeliSekarang"
+                    android:id="@+id/btn_pesan"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/colorAccentBlue"
-                    android:text="Tambah Ke Keranjang"
+                    android:text="Pesan"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 

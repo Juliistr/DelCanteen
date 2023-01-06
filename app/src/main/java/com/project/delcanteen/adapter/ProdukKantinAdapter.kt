@@ -43,7 +43,7 @@ class ProdukKantinAdapter(
 //
         holder.imageView.setOnClickListener { view ->
             val intent = Intent(view.context, DetailProdukKantinActivity::class.java)
-            intent.putExtra("id_produk", dataModel.id);
+            intent.putExtra("id", dataModel.id);
             context.startActivity(intent)
         }
     }

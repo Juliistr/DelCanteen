@@ -1,6 +1,7 @@
 package com.project.delcanteen.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.delcanteen.R
+import com.project.delcanteen.activity.DetailProdukKantinActivity
 import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.ProdukKoperasi
 
@@ -30,15 +32,20 @@ class ProdukKoperasiAdapter(
         return dataList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProdukKoperasiAdapter.ViewHolder, position: Int) {
         val dataModel = dataList.get(position)
         holder.titleTextView.text = dataModel.nama_produk
-        holder.priceTextView.text = dataModel.harga
-        holder.jumlahTextView.text = dataModel.jumlah
+        holder.priceTextView.text = "Rp." + dataModel.harga
         holder.descriptionTextView.text = dataModel.deskripsi
+        holder.jumlahTextView.text = dataModel.jumlah
         Glide.with(context).load(ApiClient.BASE_URL + dataModel.gambar).centerCrop()
             .into(holder.imageView)
-
+//
+        holder.imageView.setOnClickListener { view ->
+            val intent = Intent(view.context, DetailProdukKantinActivity::class.java)
+            intent.putExtra("id", dataModel.id);
+            context.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemLayoutView: View) :
