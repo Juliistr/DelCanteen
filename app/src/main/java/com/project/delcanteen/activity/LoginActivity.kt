@@ -49,15 +49,12 @@ class LoginActivity : AppCompatActivity() {
         ApiClient.getClient.login(email.text.toString(), password.text.toString())
             .enqueue(object :
                 Callback<ResponUser> {
-
                 override fun onResponse(call: Call<ResponUser>, response: Response<ResponUser>) {
                     progerssProgressDialog.dismiss()
                     val respon = response.body()!!
                     Log.i("Login response: ", respon.success.toString())
-
                     if (respon.success) {
                         s.setStatusLogin(true)
-
                         val intents = Intent(this@LoginActivity, HomeFragment::class.java)
                         intents.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intents)

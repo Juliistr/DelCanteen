@@ -33,8 +33,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
-                        android:text="Nama Ruangan :"
+                        android:text="Total Belanja"
                         android:textColor="@color/black" />
 
                     <LinearLayout
@@ -50,7 +51,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="5dp"
-                            android:text="Kantin Baru Latai 1"
+                            android:text="Rp.10.000"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
@@ -60,49 +61,40 @@
 
             </androidx.cardview.widget.CardView>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp"
-                android:paddingVertical="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Total Waktu Peminjaman:"
-                    android:textColor="@color/black" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/total_Peminjaman"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Total waktu peminjaman"
-                        android:inputType="number"
-                        android:textColor="@color/black"
-                        android:textSize="14dp" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="5dp"
-                android:text="Silahkan masukkan total peminjaman Ruangan Anda"
+                android:text="Total Pembayaran : "
+                android:textColor="@color/black" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/edt_total"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="Total Pembayaran"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textSize="14dp" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="5dp"
+                android:text="Silahkan masukkan total pembayaran sesuai total belanja"
                 android:textColor="@color/black" />
 
             <Button
@@ -113,7 +105,7 @@
                 android:layout_marginVertical="15dp"
                 android:backgroundTint="@color/colorAccentBlue"
                 android:paddingHorizontal="15dp"
-                android:text="Pinjam"
+                android:text="Pesan"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
 

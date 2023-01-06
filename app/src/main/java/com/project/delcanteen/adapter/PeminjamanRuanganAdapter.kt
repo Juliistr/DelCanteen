@@ -4,10 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.project.delcanteen.R
+import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.PeminjamanRuangan
+import com.project.delcanteen.model.ProdukKantin
 
 class PeminjamanRuanganAdapter(
     private var dataList: ArrayList<PeminjamanRuangan>, private val
@@ -36,9 +40,7 @@ class PeminjamanRuanganAdapter(
         lateinit var titleTextView: TextView
 
         init {
-
             titleTextView = itemLayoutView.findViewById(R.id.nama_ruangan)
         }
     }
-
 }

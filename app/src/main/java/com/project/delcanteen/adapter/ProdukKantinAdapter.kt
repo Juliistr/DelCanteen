@@ -1,6 +1,7 @@
 package com.project.delcanteen.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.delcanteen.R
+import com.project.delcanteen.activity.DetailProdukKantinActivity
 import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.ProdukKantin
+
 
 class ProdukKantinAdapter(
     private var dataList: ArrayList<ProdukKantin>, private val
@@ -37,6 +40,12 @@ class ProdukKantinAdapter(
         holder.jumlahTextView.text = dataModel.jumlah
         Glide.with(context).load(ApiClient.BASE_URL + dataModel.gambar).centerCrop()
             .into(holder.imageView)
+//
+        holder.imageView.setOnClickListener { view ->
+            val intent = Intent(view.context, DetailProdukKantinActivity::class.java)
+            intent.putExtra("id_produk", dataModel.id);
+            context.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemLayoutView: View) :

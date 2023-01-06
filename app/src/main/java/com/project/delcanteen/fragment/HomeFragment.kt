@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.project.delcanteen.R
-import com.project.delcanteen.activity.PeminjamanRuanganActivity
+import com.project.delcanteen.activity.RuanganActivity
 import com.project.delcanteen.activity.ProdukKantinActivity
 import com.project.delcanteen.activity.ProdukKoperasiActivity
 import com.project.delcanteen.activity.PulsaActivity
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
         }
 
         peminjamanRuanganIcon.setOnClickListener { view ->
-            val intent = Intent(view.context, PeminjamanRuanganActivity::class.java)
+            val intent = Intent(view.context, RuanganActivity::class.java)
             startActivity(intent)
         }
         return view

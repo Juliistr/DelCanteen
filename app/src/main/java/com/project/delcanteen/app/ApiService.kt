@@ -16,7 +16,7 @@ interface ApiService {
         @Field("KTP") KTP: String,
         @Field("email") email: String,
         @Field("password") password: String
-    ):Call<ResponModel>
+    ):Call<ResponUser>
 
     @FormUrlEncoded
     @POST("login")

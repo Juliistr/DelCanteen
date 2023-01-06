@@ -31,8 +31,10 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ProdukKantinActivity" />
         <activity android:name=".activity.ProdukKoperasiActivity" />
-        <activity android:name=".activity.PeminjamanRuanganActivity" />
+        <activity android:name=".activity.RuanganActivity" />
         <activity android:name=".activity.PulsaActivity" />
+        <activity android:name=".activity.PembayaranActivity" />
+        <activity android:name=".activity.DetailProdukKantinActivity" />
     </application>
 
 </manifest>

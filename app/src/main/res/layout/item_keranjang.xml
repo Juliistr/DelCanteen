@@ -28,7 +28,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/capcin" />
+                android:src="@drawable/esteh" />
 
             <TextView
                 android:id="@+id/tv_nama"
@@ -118,17 +118,6 @@
             </LinearLayout>
 
         </RelativeLayout>
-        <Button
-            android:id="@+id/btn_pemesanan"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="15dp"
-            android:backgroundTint="@color/colorAccentBlue"
-            android:paddingHorizontal="15dp"
-            android:text="Bayar"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
 
     </LinearLayout>
 
