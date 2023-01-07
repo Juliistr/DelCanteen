@@ -1,6 +1,7 @@
 package com.project.delcanteen.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,34 +10,40 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.delcanteen.R
+import com.project.delcanteen.activity.DetailPulsaActivity
 import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.Pulsa
 
 class PulsaAdapter(
-        private var dataList: List<Pulsa>, private val
+private var dataList: List<Pulsa>, private val
         context: Context
-    ) : RecyclerView.Adapter<PulsaAdapter.ViewHolder>() {
-        override fun onCreateViewHolder(
-            parent: ViewGroup, viewType:
-            Int
-        ): ViewHolder {
-            return ViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.list_pulsa, parent, false)
-            )
-        }
+) : RecyclerView.Adapter<PulsaAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType:
+        Int
+    ): ViewHolder {
+        return ViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.list_pulsa, parent, false)
+        )
+    }
 
-        override fun getItemCount(): Int {
-            return dataList.size
-        }
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PulsaAdapter.ViewHolder, position: Int) {
         val dataModel = dataList.get(position)
         holder.titleTextView.text = dataModel.nama_produk
-        holder.priceTextView.text = dataModel.harga
+        holder.priceTextView.text = "Rp." + dataModel.harga
         holder.jumlahTextView.text = dataModel.jumlah
         Glide.with(context).load(ApiClient.BASE_URL + dataModel.gambar).centerCrop()
             .into(holder.imageView)
-
+//
+        holder.imageView.setOnClickListener { view ->
+            val intent = Intent(view.context, DetailPulsaActivity::class.java)
+            intent.putExtra("id", dataModel.id);
+            context.startActivity(intent)
+        }
     }
 
     class ViewHolder(itemLayoutView: View) :
@@ -54,4 +61,4 @@ class PulsaAdapter(
             jumlahTextView = itemLayoutView.findViewById(R.id.jumlah)
         }
     }
-    }
+}

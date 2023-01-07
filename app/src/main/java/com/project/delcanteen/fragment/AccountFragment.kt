@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.project.delcanteen.R
 import com.project.delcanteen.activity.LoginActivity
+import com.project.delcanteen.activity.MasukActivity
 import com.project.delcanteen.activity.PulsaActivity
 import com.project.delcanteen.helper.SharedPref
 
@@ -29,7 +30,7 @@ class AccountFragment : Fragment() {
         s = SharedPref(requireActivity())
 
         btnLogout.setOnClickListener { view ->
-            val intent = Intent(view.context, LoginActivity::class.java)
+            val intent = Intent(view.context, MasukActivity::class.java)
             startActivity(intent)
         }
 

@@ -22,7 +22,7 @@ class PeminjamanRuanganAdapter(
         Int
     ): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.list_peminjaman_ruangan, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.list_pulsa, parent, false)
         )
     }
 
@@ -32,7 +32,7 @@ class PeminjamanRuanganAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dataModel = dataList.get(position)
-        holder.titleTextView.text = dataModel.nama_ruangan
+//        holder.titleTextView.text = dataModel.nama_ruangan
     }
 
     class ViewHolder(itemLayoutView: View) :
@@ -40,7 +40,7 @@ class PeminjamanRuanganAdapter(
         lateinit var titleTextView: TextView
 
         init {
-            titleTextView = itemLayoutView.findViewById(R.id.nama_ruangan)
+//            titleTextView = itemLayoutView.findViewById(R.id.nama_ruangan)
         }
     }
 }

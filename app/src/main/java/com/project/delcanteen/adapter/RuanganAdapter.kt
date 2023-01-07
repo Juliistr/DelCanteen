@@ -2,6 +2,7 @@ package com.project.delcanteen.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class RuanganAdapter(
         Int
     ): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.list_peminjaman_ruangan, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.list_pulsa, parent, false)
         )
     }
 
@@ -36,7 +37,8 @@ class RuanganAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dataModel = dataList.get(position)
-        holder.titleTextView.text = dataModel.nama_ruangan
+        Log.i("Data on adapter: ",dataList.toString())
+//        holder.titleTextView.text = dataModel.nama_ruangan
     }
 
     class ViewHolder(itemLayoutView: View) :
@@ -45,7 +47,7 @@ class RuanganAdapter(
 
         init {
 
-            titleTextView = itemLayoutView.findViewById(R.id.nama_ruangan)
+//            titleTextView = itemLayoutView.findViewById(R.id.nama_ruangan)
         }
     }
 }

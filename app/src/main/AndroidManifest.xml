@@ -36,6 +36,8 @@
         <activity android:name=".activity.PulsaActivity" />
         <activity android:name=".activity.PembayaranActivity" />
         <activity android:name=".activity.DetailProdukKantinActivity" />
+        <activity android:name=".activity.DetailProdukKoperasiActivity" />
+        <activity android:name=".activity.DetailPulsaActivity" />
     </application>
 
 </manifest>

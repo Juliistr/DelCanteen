@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Pulsa(
     @Expose
+    @SerializedName("id")
+    val id: String,
+    @Expose
     @SerializedName("nama_produk")
     val nama_produk: String,
     @Expose

@@ -28,6 +28,10 @@ interface ApiInterface {
     @GET("api/produkpulsa")
     fun getPulsa(): Call<ResponPulsa>
 
+    @GET("api/produkpulsa/{id}")
+    fun getPulsaById(
+        @Path("id") id: String?
+    ): Call<ResponSinglePulsa>
     @GET("api/ruangan")
     fun getPeminjamanRuangan(): Call<ResponPeminjamanRuangan>
 

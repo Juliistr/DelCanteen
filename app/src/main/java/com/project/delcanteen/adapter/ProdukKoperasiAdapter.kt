@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.project.delcanteen.R
 import com.project.delcanteen.activity.DetailProdukKantinActivity
+import com.project.delcanteen.activity.DetailProdukKoperasiActivity
 import com.project.delcanteen.app.ApiClient
 import com.project.delcanteen.model.ProdukKoperasi
 
@@ -42,7 +43,7 @@ class ProdukKoperasiAdapter(
             .into(holder.imageView)
 //
         holder.imageView.setOnClickListener { view ->
-            val intent = Intent(view.context, DetailProdukKantinActivity::class.java)
+            val intent = Intent(view.context, DetailProdukKoperasiActivity::class.java)
             intent.putExtra("id", dataModel.id);
             context.startActivity(intent)
         }
